@@ -1,0 +1,76 @@
+From Pragma.c:
+ * 
+ * Pragma (Martin.Cleaver@BCS.org.uk) 10/Dec/1997
+ * ================================== ===========
+ * 
+ * Allows users/administrators to add arbitrary commands under the CVS
+ * command. Typically this is used to prototype new cvs commands, but
+ * also allows customisation of without recompilation.
+ *
+ * Commands are added under the 'cvs pragma' prefix. For instance,
+ * I can create a new command 'cvs pragma gettags' which shows all the
+ * tags in use in this module.
+ *
+ * The extra commands are stored in CVSPRAGMADIR. The first argument to
+ * the command when executed is one of 'client', 'server' or 'callback'.
+ *
+ * If all the work can be done without looking at the repository, 
+ * implementation is 'client' side, work that can only be done on the 
+ * server is 'server' side. 
+ *
+ * Our gettags example might run as follows:
+ * 
+ *		cvs co foo
+ *      cd foo
+ *		cvs pragma gettags param1 param2
+ *
+ *	This finds and runs $CVSPRAGMADIR/gettags as:
+ *		$CVSPRAGMADIR/gettags client param1 param2
+ *
+ * If gettags needs access to the repository it may choose to
+ * invoke 'cvs pragma server gettags' at which point it effectively
+ * runs an RPC on the server. Again CVSPRAGMADIR is used to locate
+ * the server version of gettags (ideally this is the same script)
+ * running it with 'server' as the first parameter.
+ *
+ * Examples included.
+ * ------------------
+ *
+ * To use these examples you need to copy the scripts into a directory
+ * pointed to by $CVSPRAGMADIR on the client and server. 
+ * 
+ * client: 
+ *
+ * I've included two examples, the first example, separate_client,
+ * uses a pair of files, separate_client & separate_server
+ * one for each of the client and server sides.
+ * 
+ * The second example, 'combined', uses a single script. This is the 
+ * preferred method.
+ *
+ * Notes 
+ * -----
+ *
+ * cvs pragma command looks first on the client and, if it can't find
+ * it there, on the server for the command.
+ *
+ * cvs pragma client command looks only on the client
+ *
+ * cvs pragma server command if run from the client side connects and
+ * sends the command to the server.
+ * 
+ * cvs pragma server command if run from the server side looks only on 
+ * the server.
+ *
+ * cvs pragma callback command is not yet implemented.
+ * 
+ * I've done only limited testing on a Windows 95 OSR2 machine at home.
+ * At some point I might test it on Solaris.
+ * 
+ * Note that the check for CVSROOT should be disabled. 
+ * This allows maximum flexibility.
+
+ * Note that I have not tested this in client-server mode.
+ * Note that I don't consider myself a C programmer, rather I wanted
+ * to write extensions in Perl and Java and this seemed the best way!
+

@@ -1,0 +1,124 @@
+                          CVS PRAGMA TEST RUNS.
+
+
+CVSROOT=:local:e:\cvsroot
+CVSPRAGMADIR=e:\cvstmp\bin\
+
+e:\cvstmp\bin contains:
+
+COMBINED BAT           849  10/12/97   2:10 combined.bat
+SEPARA~2 BAT            45  10/12/97   1:25 separate_server.bat
+SEPARA~1 BAT            66  10/12/97   2:13 separate_client.bat
+
+Commands are run from e:\cvstmp
+Note that CVSPRAGMABIN could be anywhere, it would not ordinarily
+be a sub directory of the current working directory.
+
+
+EXAMPLE 1.
+----------
+
+E:\cvstmp>cvs pragma combined.bat
+
+pragma_on_client_or_server()
+pragma_setup()
+
+e:\cvstmp\bin\combined.bat client
+'e:\cvstmp\bin\combined.bat' '"client"'
+This is the client side
+pragma_receive_as_server()
+pragma_setup()
+argv[0]=world
+argv[1]=Wed
+argv[2]=Dec
+argv[3]=10
+argv[4]=02:19:30
+argv[5]=1997
+
+
+e:\cvstmp\bin\combined.bat server world Wed Dec 10 02:19:30 1997
+'e:\cvstmp\bin\combined.bat' '"server"' '"world"' '"Wed"' '"Dec"' '"10"' '"02:19
+:30"' '"1997"'
+The time sponsored by CVS pragma is 02:19:30
+run_exec returned 0
+run_exec returned 0
+
+
+EXAMPLE 2.
+----------
+
+
+E:\cvstmp>cvs pragma client combined.bat
+pragma_client()
+pragma_setup()
+
+
+e:\cvstmp\bin\combined.bat client
+'e:\cvstmp\bin\combined.bat' '"client"'
+This is the client side
+pragma_receive_as_server()
+pragma_setup()
+argv[0]=world
+argv[1]=Wed
+argv[2]=Dec
+argv[3]=10
+argv[4]=02:23:17
+argv[5]=1997
+
+
+e:\cvstmp\bin\combined.bat server world Wed Dec 10 02:23:17 1997
+'e:\cvstmp\bin\combined.bat' '"server"' '"world"' '"Wed"' '"Dec"' '"10"' '"02:23
+:17"' '"1997"'
+The time sponsored by CVS pragma is 02:23:17
+run_exec returned 0
+run_exec returned 0
+
+
+EXAMPLE 3.
+----------
+
+E:\cvstmp>cvs pragma server combined.bat
+pragma_receive_as_server()
+pragma_setup()
+
+
+e:\cvstmp\bin\combined.bat server
+'e:\cvstmp\bin\combined.bat' '"server"'
+Who are you, imposter?
+run_exec returned 0
+
+
+EXAMPLE 4.
+----------
+
+E:\cvstmp\bin>cvs pragma server separate_client.bat
+pragma_receive_as_server()
+pragma_setup()
+
+
+e:\cvstmp\bin\separate_client.bat server
+'e:\cvstmp\bin\separate_client.bat' '"server"'
+
+E:\cvstmp\bin>echo hello "server"
+hello "server"
+
+E:\cvstmp\bin>cvs pragma server separate_server.bat "server"
+pragma_receive_as_server()
+pragma_setup()
+argv[0]=server
+
+
+e:\cvstmp\bin\separate_server.bat server server
+'e:\cvstmp\bin\separate_server.bat' '"server"' '"server"'
+
+E:\cvstmp\bin>echo hello from the server! ("server" "server"  )
+hello from the server! ("server" "server"  )
+
+E:\cvstmp\bin>
+E:\cvstmp\bin>
+
+run_exec returned 0
+
+E:\cvstmp\bin>
+
+run_exec returned 0

@@ -1,0 +1,12 @@
+69d68
+< int pragma PROTO((int argc, char **argv));
+126d124
+< 	{ "pragma",   "x",		  NULL,        pragma },
+197d194
+< 	"		 pragma		  Run unofficial extension. (site specific)\n"
+648d644
+< 			(strcmp (command_name, "pragma") != 0) && /* FIXME: why does this not work? */
+652c648
+< 			(strcmp (command_name, "rtag") != 0)) 
+---
+> 			(strcmp (command_name, "rtag") != 0))
